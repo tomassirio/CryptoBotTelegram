@@ -16,6 +16,7 @@ var (
 		"dogecoin": "DOGE",
 		"binancecoin": "BNB",
 		"reserve-rights-token": "RSR",
+		"stellar": "XLM",
 	}
 
 	BtnBTC = CoinSelector.Data(CoinIndexMap["bitcoin"], CoinIndexMap["bitcoin"], "bitcoin")
@@ -28,6 +29,7 @@ var (
 	BtnDOGE = CoinSelector.Data(CoinIndexMap["dogecoin"], CoinIndexMap["dogecoin"], "dogecoin")
 	BtnBNB = CoinSelector.Data(CoinIndexMap["binancecoin"], CoinIndexMap["binancecoin"], "binancecoin")
 	BtnRSR = CoinSelector.Data(CoinIndexMap["reserve-rights-token"], CoinIndexMap["reserve-rights-token"], "reserve-rights-token")
+	BtnXLM = CoinSelector.Data(CoinIndexMap["stellar"], CoinIndexMap["stellar"], "stellar")
 
 	CoinButtonMap = map[string]*tb.Btn {
 		"bitcoin": &BtnBTC,
@@ -40,6 +42,7 @@ var (
 		"dogecoin": &BtnDOGE,
 		"binancecoin": &BtnBNB,
 		"reserve-rights-token": &BtnRSR,
+		"stellar": &BtnXLM,
 	}
 
 )
