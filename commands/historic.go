@@ -79,5 +79,5 @@ func formatDateDisplay(date string) string{
 	if date == "yesterday" {
 		return date
 	}
-	return "last" + date
+	return "last " + date
 }
