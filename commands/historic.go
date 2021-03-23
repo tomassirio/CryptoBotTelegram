@@ -67,10 +67,10 @@ func replyDate(coin string, p float64, m *tb.Message) {
 }
 
 func returnEmoji(perc float64) string {
-	if perc == 0.0000 {
+	if perc == 0.00 {
 		return "➡️"
 	}
-	if perc < 0.0000 {
+	if perc < 0.00 {
 		return "↘️"
 	}
 	return "↗️"
