@@ -51,6 +51,6 @@ func OrderCoinSelector() {
 	CoinSelector.Inline(
 		CoinSelector.Row(BtnBTC, BtnETH, BtnADA, BtnXRP),
 		CoinSelector.Row(BtnUNI, BtnSUSHI, BtnDAI, BtnDOGE),
-		CoinSelector.Row(BtnBNB, BtnRSR),
+		CoinSelector.Row(BtnBNB, BtnRSR, BtnXLM),
 	)
 }
