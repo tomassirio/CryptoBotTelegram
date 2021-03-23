@@ -10,7 +10,7 @@ var HandleAssets = func(m *tb.Message) {
 
 	OrderCoinSelector()
 
-	Bot.Send(m.Sender, "Here are the current Assets", CoinSelector)
+	Bot.Send(m.Chat, "Here are the current Assets", CoinSelector)
 
 	for _, button := range CoinButtonMap {
 		Bot.Handle(button, func(c *tb.Callback) {

@@ -33,7 +33,7 @@ var HandleHistoric = func(m *tb.Message) {
 
 	OrderCoinSelector()
 
-	Bot.Send(m.Sender, "For which asset do you want to know the historic value?", CoinSelector)
+	Bot.Send(m.Chat, "For which asset do you want to know the historic value?", CoinSelector)
 
 	for _, button := range CoinButtonMap {
 		Bot.Handle(button, func(c *tb.Callback) {
@@ -50,7 +50,7 @@ func replyDate(coin string, p float64, m *tb.Message) {
 		selector.Row(btnYes, btnMon, btnYea),
 	)
 
-	Bot.Send(m.Sender, "What's the historic you want to get?", selector)
+	Bot.Send(m.Chat, "What's the historic you want to get?", selector)
 
 	for _, button := range dateButtonMap {
 		Bot.Handle(button, func(c *tb.Callback) {

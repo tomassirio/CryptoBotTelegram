@@ -32,6 +32,6 @@ var HandleSummary = func(m *tb.Message) {
 		}
 	}
 
-	Bot.Send(m.Sender, builder.String())
+	Bot.Send(m.Chat, builder.String())
 
 }
