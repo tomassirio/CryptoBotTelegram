@@ -11,23 +11,16 @@ import (
 var (
 	selector = &tb.ReplyMarkup{}
 	btnYes = selector.Data("Yesterday", "Yes", "yesterday")
-	btnMon = selector.Data("Month", "Mon", "month")
-	btnYea = selector.Data("Year", "Yea", "year")
+	btnWee = selector.Data("Week", "Wee", "last week")
+	btnMon = selector.Data("Month", "Mon", "last month")
+	btnYea = selector.Data("Year", "Yea", "last year")
 	yes = time.Now().AddDate(0, 0, -1).Format("02-01-2006")
+	wee = time.Now().AddDate(0, 0, -7).Format("02-01-2006")
 	mon = time.Now().AddDate(0, -1, 0).Format("02-01-2006")
 	yea = time.Now().AddDate(-1, 0, 0).Format("02-01-2006")
-	dateButtonMap = map[string]*tb.Btn {"yesterday": &btnYes, "month": &btnMon, "year": &btnYea}
-	dateMap = map[string]string {"yesterday": yes, "month": mon, "year": yea}
+	dateButtonMap = map[string]*tb.Btn {"yesterday": &btnYes, "week": &btnWee, "month": &btnMon, "year": &btnYea}
+	dateMap = map[string]string {"yesterday": yes, "week": wee, "month": mon, "year": yea}
 )
-
-func getHistoric(coin string, date string) float64{
-	p, err := API.CoinsIDHistory(coin, date, false)
-	if err != nil {
-		log.Println("There's no data for this coin/date")
-	}
-	return p.MarketData.CurrentPrice["usd"]
-}
-
 
 var HandleHistoric = func(m *tb.Message) {
 
@@ -42,12 +35,20 @@ var HandleHistoric = func(m *tb.Message) {
 			replyDate(c.Data, p, m)
 		})
 	}
+}
 
+func getHistoric(coin string, date string) float64{
+	p, err := API.CoinsIDHistory(coin, date, false)
+	if err != nil {
+		log.Println("There's no data for this coin/date")
+	}
+	return p.MarketData.CurrentPrice["usd"]
 }
 
 func replyDate(coin string, p float64, m *tb.Message) {
 	selector.Inline(
-		selector.Row(btnYes, btnMon, btnYea),
+		selector.Row(btnYes, btnWee),
+		selector.Row(btnMon, btnYea),
 	)
 
 	Bot.Send(m.Chat, "What's the historic you want to get?", selector)
@@ -60,9 +61,17 @@ func replyDate(coin string, p float64, m *tb.Message) {
 			perc := ((p-h) / h) * 100
 
 			Bot.Send(m.Chat, CoinIndexMap[coin]+"'s " + c.Data + "'s price was: U$S "+ F64ToString(h) +
-				"\nThat's a " + F64ToString(perc) + "% compared to Today's " + F64ToString(p))
+				"\nThat's a " + returnEmoji(perc) + " " + F64ToString(perc) + "% compared to Today's U$S " + F64ToString(p))
 		})
 	}
+}
 
-
+func returnEmoji(perc float64) string {
+	if perc == 0.0000 {
+		return "➡️"
+	}
+	if perc < 0.0000 {
+		return "↘️"
+	}
+	return "↗️"
 }

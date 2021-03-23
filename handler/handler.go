@@ -6,7 +6,7 @@ import (
 )
 
 
-func LoadHandler(b *tb.Bot) map[string]func(m *tb.Message) {
+func LoadHandler() map[string]func(m *tb.Message) {
 	commandMap := make(map[string]func(m *tb.Message))
 
 	commandMap["/historic"] = HandleHistoric

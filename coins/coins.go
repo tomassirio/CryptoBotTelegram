@@ -14,6 +14,8 @@ var (
 		"sushi": "SUSHI",
 		"dai": "DAI",
 		"dogecoin": "DOGE",
+		"binancecoin": "BNB",
+		"reserve-rights-token": "RSR",
 	}
 
 	BtnBTC = CoinSelector.Data(CoinIndexMap["bitcoin"], CoinIndexMap["bitcoin"], "bitcoin")
@@ -24,6 +26,8 @@ var (
 	BtnSUSHI = CoinSelector.Data(CoinIndexMap["sushi"], CoinIndexMap["sushi"], "sushi")
 	BtnDAI = CoinSelector.Data(CoinIndexMap["dai"], CoinIndexMap["dai"], "dai")
 	BtnDOGE = CoinSelector.Data(CoinIndexMap["dogecoin"], CoinIndexMap["dogecoin"], "dogecoin")
+	BtnBNB = CoinSelector.Data(CoinIndexMap["binancecoin"], CoinIndexMap["binancecoin"], "binancecoin")
+	BtnRSR = CoinSelector.Data(CoinIndexMap["reserve-rights-token"], CoinIndexMap["reserve-rights-token"], "reserve-rights-token")
 
 	CoinButtonMap = map[string]*tb.Btn {
 		"bitcoin": &BtnBTC,
@@ -34,14 +38,16 @@ var (
 		"sushi": &BtnSUSHI,
 		"dai": &BtnDAI,
 		"dogecoin": &BtnDOGE,
+		"binancecoin": &BtnBNB,
+		"reserve-rights-token": &BtnRSR,
 	}
 
 )
 
 func OrderCoinSelector() {
 	CoinSelector.Inline(
-		CoinSelector.Row(BtnBTC, BtnETH, BtnADA),
-		CoinSelector.Row(BtnXRP, BtnUNI, BtnSUSHI),
-		CoinSelector.Row(BtnDAI, BtnDOGE),
+		CoinSelector.Row(BtnBTC, BtnETH, BtnADA, BtnXRP),
+		CoinSelector.Row(BtnUNI, BtnSUSHI, BtnDAI, BtnDOGE),
+		CoinSelector.Row(BtnBNB, BtnRSR),
 	)
 }

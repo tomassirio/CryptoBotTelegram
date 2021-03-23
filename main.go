@@ -8,7 +8,7 @@ import (
 
 func main() {
 
-	for k, v := range LoadHandler(Bot) {
+	for k, v := range LoadHandler() {
 		Bot.Handle(k, v)
 		log.Println(k + " ✅  Loaded!")
 	}
