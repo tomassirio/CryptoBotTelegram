@@ -11,9 +11,9 @@ import (
 var (
 	selector = &tb.ReplyMarkup{}
 	btnYes = selector.Data("Yesterday", "Yes", "yesterday")
-	btnWee = selector.Data("Week", "Wee", "last week")
-	btnMon = selector.Data("Month", "Mon", "last month")
-	btnYea = selector.Data("Year", "Yea", "last year")
+	btnWee = selector.Data("Week", "Wee", "week")
+	btnMon = selector.Data("Month", "Mon", "month")
+	btnYea = selector.Data("Year", "Yea", "year")
 	yes = time.Now().AddDate(0, 0, -1).Format("02-01-2006")
 	wee = time.Now().AddDate(0, 0, -7).Format("02-01-2006")
 	mon = time.Now().AddDate(0, -1, 0).Format("02-01-2006")
@@ -53,14 +53,13 @@ func replyDate(coin string, p float64, m *tb.Message) {
 
 	Bot.Send(m.Chat, "What's the historic you want to get?", selector)
 
-	for date, button := range dateButtonMap {
+	for _, button := range dateButtonMap {
 		Bot.Handle(button, func(c *tb.Callback) {
-
-			h := getHistoric(coin, dateMap[date])
+			h := getHistoric(coin, dateMap[c.Data])
 
 			perc := ((p-h) / h) * 100
 
-			Bot.Send(m.Chat, CoinIndexMap[coin]+"'s " + c.Data + "'s price was: U$S "+ F64ToString(h) +
+			Bot.Send(m.Chat, CoinIndexMap[coin]+"'s " + formatDateDisplay(c.Data) + "'s price was: U$S "+ F64ToString(h) +
 				"\nThat's a " + returnEmoji(perc) + " " + F64ToString(perc) + "% compared to Today's U$S " + F64ToString(p))
 		})
 	}
@@ -74,4 +73,11 @@ func returnEmoji(perc float64) string {
 		return "↘️"
 	}
 	return "↗️"
+}
+
+func formatDateDisplay(date string) string{
+	if date == "yesterday" {
+		return date
+	}
+	return "last" + date
 }
